@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>سامانۀ شفافیت شهرداری قم | قالب پیشنهادی</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ---------- متغیرهای طراحی ---------- */
+    :root {
+      --color-bg: #f8fafc;
+      --color-surface: #ffffff;
+      --color-border: #e2e8f0;
+      --color-text: #1e293b;
+      --color-text-muted: #64748b;
+      --color-primary: #0f766e;
+      --color-primary-light: #ccfbf1;
+      --color-warning-bg: #fef3c7;
+      --color-warning-text: #92400e;
+      --color-danger-bg: #fee2e2;
+      --color-danger-text: #991b1b;
+      --color-success-bg: #dcfce7;
+      --color-success-text: #166534;
+      --radius: 12px;
+      --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+      --font-fa: 'Vazirmatn', 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    /* ---------- ریست ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font-fa);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* ---------- چیدمان کلی ---------- */
+    .app {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      grid-template-rows: auto 1fr auto;
+      grid-template-areas:
+        "sidebar header"
+        "sidebar main"
+        "sidebar footer";
+      min-height: 100vh;
+    }
+
+    /* ---------- هدر ---------- */
+    .header {
+      grid-area: header;
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .header h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin: 0;
+      white-space: nowrap;
+    }
+    .header h1 span {
+      color: var(--color-primary);
+    }
+    .search-box {
+      flex: 1;
+      max-width: 480px;
+      position: relative;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 10px 16px 10px 44px;
+      border: 1px solid var(--color-border);
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      background: var(--color-bg);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px var(--color-primary-light);
+    }
+    .search-box::before {
+      content: "🔍";
+      position: absolute;
+      inset-inline-start: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+
+    /* ---------- سایدبار ---------- */
+    .sidebar {
+      grid-area: sidebar;
+      background: var(--color-surface);
+      border-inline-end: 1px solid var(--color-border);
+      padding: 24px 16px;
+      overflow-y: auto;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+    }
+    .sidebar__brand {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--color-border);
+      color: var(--color-primary);
+    }
+    .sidebar__nav {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .sidebar__nav > li {
+      margin-bottom: 6px;
+    }
+    .sidebar__nav a {
+      display: block;
+      padding: 8px 12px;
+      border-radius: 8px;
+      color: var(--color-text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: background 0.15s;
+    }
+    .sidebar__nav a:hover,
+    .sidebar__nav a.active {
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      font-weight: 500;
+    }
+    .sidebar__nav .sub {
+      list-style: none;
+      padding-inline-start: 20px;
+      margin: 4px 0 8px;
+    }
+    .sidebar__nav .sub a {
+      font-size: 0.85rem;
+      padding: 5px 10px;
+      color: var(--color-text-muted);
+    }
+    .sidebar__nav .sub a:hover {
+      color: var(--color-primary);
+      background: transparent;
+    }
+
+    /* ---------- محتوای اصلی ---------- */
+    .main {
+      grid-area: main;
+      padding: 28px 32px 48px;
+      max-width: 1100px;
+    }
+
+    /* ---------- عنوان بخش ---------- */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .section-header h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    .section-header .badge {
+      font-size: 0.75rem;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      font-weight: 500;
+    }
+
+    /* ---------- کارت ---------- */
+    .card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 20px 22px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+    }
+    .card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 10px;
+    }
+    .card p {
+      margin: 0 0 8px;
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* ---------- برچسب وضعیت ---------- */
+    .status {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-top: 8px;
+    }
+    .status--ok { background: var(--color-success-bg); color: var(--color-success-text); }
+    .status--warn { background: var(--color-warning-bg); color: var(--color-warning-text); }
+    .status--bad { background: var(--color-danger-bg); color: var(--color-danger-text); }
+
+    /* ---------- لیست وضعیت‌ها ---------- */
+    .status-list {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 0;
+      border-top: 1px dashed var(--color-border);
+      padding-top: 12px;
+    }
+    .status-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.88rem;
+      color: var(--color-text-muted);
+      margin-bottom: 6px;
+    }
+    .status-list li::before {
+      content: "•";
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+
+    /* ---------- بخش جنبی ---------- */
+    .aside-section {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      margin-top: 28px;
+    }
+    .aside-section h3 {
+      margin: 0 0 8px;
+      font-size: 0.95rem;
+      color: #92400e;
+    }
+
+    /* ---------- فوتر ---------- */
+    .footer {
+      grid-area: footer;
+      padding: 16px 28px;
+      border-top: 1px solid var(--color-border);
+      background: var(--color-surface);
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* ---------- واکنش‌گرا ---------- */
+    @media (max-width: 900px) {
+      .app {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto 1fr auto;
+        grid-template-areas:
+          "header"
+          "sidebar"
+          "main"
+          "footer";
+      }
+      .sidebar {
+        height: auto;
+        position: static;
+        border-inline-end: none;
+        border-bottom: 1px solid var(--color-border);
+        padding: 16px;
+      }
+      .sidebar__nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .sidebar__nav .sub {
+        display: none; /* در موبایل زیرمنوها جمع می‌شوند */
+      }
+      .main { padding: 20px 16px 32px; }
+      .header { padding: 12px 16px; flex-wrap: wrap; }
+      .search-box { max-width: 100%; }
+    }
+
+    @media (max-width: 480px) {
+      .header h1 { font-size: 1rem; white-space: normal; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+
+    <!-- ===== هدر ===== -->
+    <header class="header">
+      <h1>سامانۀ شفافیت <span>شهرداری قم</span></h1>
+      <div class="search-box">
+        <input type="search" placeholder="جستجو در موضوعات شفافیت..." aria-label="جستجو" />
+      </div>
+    </header>
+
+    <!-- ===== سایدبار ===== -->
+    <aside class="sidebar">
+      <div class="sidebar__brand">فهرست موضوعی</div>
+      <nav>
+        <ul class="sidebar__nav">
+          <li><a href="#financial" class="active">مالی و اقتصادی</a>
+            <ul class="sub">
+              <li><a href="#budget">برنامه و بودجه</a></li>
+              <li><a href="#contracts">قراردادها و معاملات</a></li>
+              <li><a href="#tenders">فراخوان‌ها و مناقصات</a></li>
+              <li><a href="#debts">مطالبات و بدهی‌ها</a></li>
+              <li><a href="#exemptions">معافیت‌ها و تخفیف‌ها</a></li>
+            </ul>
+          </li>
+          <li><a href="#projects">پروژه‌ها و عملکرد</a>
+            <ul class="sub">
+              <li><a href="#civil-projects">پروژه‌های عمرانی</a></li>
+              <li><a href="#non-civil">پروژه‌های غیر عمرانی</a></li>
+            </ul>
+          </li>
+          <li><a href="#urban">شهرسازی، املاک و دارایی‌ها</a></li>
+          <li><a href="#structure">ساختارها و دستورالعمل‌ها</a>
+            <ul class="sub">
+              <li><a href="#org-chart">چارت سازمانی</a></li>
+              <li><a href="#staff">کارکنان و دریافتی‌ها</a></li>
+              <li><a href="#rules">قوانین و فرآیندها</a></li>
+            </ul>
+          </li>
+          <li><a href="#systems">سامانه‌ها و خدمات</a></li>
+          <li><a href="#research">پژوهش و داده‌ها</a></li>
+          <li><a href="#citizen-reports">گزارش‌های مردمی</a></li>
+          <li><a href="#auxiliary">بخش جنبی</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- ===== محتوای اصلی ===== -->
+    <main class="main">
+
+      <!-- بخش مالی -->
+      <section id="financial">
+        <div class="section-header">
+          <h2>مالی و اقتصادی</h2>
+          <span class="badge">بخش اصلی</span>
+        </div>
+
+        <article id="budget" class="card">
+          <h3>برنامه و بودجه</h3>
+          <p>برنامه‌های مصوب، بودجه‌های پیشنهادی/مصوب/اصلاحی، تفریغ بودجه و گزارش‌های عملکرد.</p>
+          <div class="status status--warn">وضعیت فعلی: نیازمند اصلاح</div>
+          <ul class="status-list">
+            <li>بسیاری از فایل‌ها به‌صورت تصویر اسکن‌شده منتشر شده‌اند؛ فایل PDF اکسلی و اکسل بارگذاری نشده است.</li>
+            <li>اسناد مربوط به سال ۱۴۰۵ هنوز بارگذاری نشده‌اند.</li>
+            <li>برخی لینک‌ها خراب هستند یا فایلی در آدرس ثبت‌شده وجود ندارد.</li>
+          </ul>
+        </article>
+
+        <article id="contracts" class="card">
+          <h3>قراردادها، تفاهم‌نامه‌ها و معاملات</h3>
+          <p>متن و مستندات کلیۀ قراردادهای جاری و خاتمه‌یافته (هزینه‌ای، درآمدی، سرمایه‌گذاری و اجارۀ املاک).</p>
+          <div class="status status--bad">وضعیت فعلی: ناقص</div>
+          <ul class="status-list">
+            <li>تنها فهرست قراردادها موجود است؛ متن یا فایل قرارداد در دسترس نیست.</li>
+            <li>قابلیت جستجو وجود ندارد.</li>
+          </ul>
+        </article>
+
+        <article id="tenders" class="card">
+          <h3>فراخوان‌ها، مزایدات و مناقصات</h3>
+          <p>دسترسی به فهرست مشخص و قابل جستجوی فراخوان‌ها.</p>
+          <div class="status status--warn">وضعیت فعلی: ناکافی</div>
+          <ul class="status-list">
+            <li>تنها لینک وبسایت سامانۀ ستاد در بخش «مناقصات و مزایدات» قرار گرفته است.</li>
+            <li>کاربر به فهرست مشخص و قابل دسترسی فراخوان‌ها دسترسی ندارد.</li>
+          </ul>
+        </article>
+
+        <article id="debts" class="card">
+          <h3>مطالبات و بدهی‌ها</h3>
+          <p>شفافیت در مطالبات و بدهی‌های شهرداری.</p>
+          <div class="status status--warn">وضعیت فعلی: نیازمند شفاف‌سازی بیشتر</div>
+        </article>
+
+        <article id="exemptions" class="card">
+          <h3>معافیت‌ها، تخفیف‌ها، بخشودگی‌ها و مساعدت‌ها</h3>
+          <p>موارد معافیت، تخفیف و بخشودگی صورت‌گرفته و مساعدت‌های انجام‌شده به اشخاص حقیقی و حقوقی.</p>
+          <div class="status status--warn">وضعیت فعلی: نیازمند انتشار جزئیات</div>
+        </article>
+      </section>
+
+      <!-- بخش پروژه‌ها -->
+      <section id="projects">
+        <div class="section-header">
+          <h2>پروژه‌ها و عملکرد</h2>
+          <span class="badge">بخش اصلی</span>
+        </div>
+
+        <article id="civil-projects" class="card">
+          <h3>پروژه‌های عمرانی</h3>
+          <p>اطلاعات کلی، اهداف، موقعیت، مبلغ مصوب و هزینه‌کرد، برنامه زمانی، پیشرفت و پیمانکاران.</p>
+          <div class="status status--bad">وضعیت فعلی: فاقد اطلاعات کلیدی</div>
+          <ul class="status-list">
+            <li>اطلاعات کلی هر پروژه (اهداف، ابعاد و احجام، ارقام ریالی و موقعیت) وجود ندارد.</li>
+            <li>اطلاعات به‌روز پیشرفت بخش‌های مختلف هر پروژه در دسترس نیست.</li>
+          </ul>
+        </article>
+
+        <article id="non-civil" class="card">
+          <h3>پروژه‌های غیر عمرانی</h3>
+          <p>اطلاعات پروژه‌های غیر عمرانی شهرداری.</p>
+          <div class="status status--warn">وضعیت فعلی: نیازمند تکمیل</div>
+        </article>
+      </section>
+
+      <!-- شهرسازی و املاک -->
+      <section id="urban">
+        <div class="section-header">
+          <h2>شهرسازی، املاک و دارایی‌ها</h2>
+          <span class="badge">بخش اصلی</span>
+        </div>
+
+        <article class="card">
+          <h3>شهرسازی</h3>
+          <p>پرونده‌ها و اطلاعات شهرسازی، توافق‌ها و اسناد، ضوابط محاسبۀ عوارض.</p>
+        </article>
+
+        <article class="card">
+          <h3>املاک</h3>
+          <p>املاک و مستحدثات شهرداری، واگذاری‌ها، اجاره‌ها و معاملات ملکی.</p>
+          <div class="status status--warn">وضعیت فعلی: ابهام در دامنه</div>
+          <ul class="status-list">
+            <li>مشخص نیست فهرست «املاک مورد بهره‌برداری» شامل تمام املاک شهرداری است یا فقط املاک مورد بهره‌برداری.</li>
+            <li>فهرست اشاره‌شده قابلیت جستجو ندارد.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>دیگر دارایی‌ها</h3>
+          <p>تجهیزات و ماشین‌آلات گران‌قیمت.</p>
+        </article>
+      </section>
+
+      <!-- ساختارها -->
+      <section id="structure">
+        <div class="section-header">
+          <h2>ساختارها، روندها و دستورالعمل‌ها</h2>
+          <span class="badge">بخش اصلی</span>
+        </div>
+
+        <article id="org-chart" class="card">
+          <h3>ساختار سازمانی و سرمایۀ انسانی</h3>
+          <p>چارت سازمانی، جایگاه‌ها، فهرست کارکنان، دریافتی‌ها، کارکنان مشمول قوانین تعارض منافع و سفرهای خارجی.</p>
+          <div class="status status--warn">وضعیت فعلی: نیازمند بهبود رابط کاربری و شفافیت مالی</div>
+          <ul class="status-list">
+            <li>تنها سمت فعلی، سابقه و نوع قرارداد کارکنان نمایش داده می‌شود.</li>
+            <li>اطلاعات دریافتی مدیران ارشد به‌صورت جداگانه نمایش داده نشده است.</li>
+            <li>به‌جای مبلغ حکم، باید خالص دریافتی آورده شود.</li>
+            <li>اشکال‌های فنی در رابط کاربری و نحوۀ نمایش وجود دارد.</li>
+            <li>اطلاعات این بخش به‌روزرسانی نشده است.</li>
+          </ul>
+        </article>
+
+        <article id="rules" class="card">
+          <h3>قوانین، دستورالعمل‌ها و روندها</h3>
+          <p>فرآیند ارائه خدمات به شهروندان، فرآیندهای تصمیم‌گیری داخلی، کمیسیون‌ها و جلسات، مصوبات شورا، اساسنامه‌ها و آئین‌نامه‌ها.</p>
+          <div class="status status--warn">وضعیت فعلی: ناکافی برای مخاطب عام</div>
+          <ul class="status-list">
+            <li>بخش «آراء کمیسیون‌ها» خالی است.</li>
+            <li>فرآیندها با استاندارد BPMN نگاشته شده که برای مخاطب عام گنگ است؛ نیاز به راهنمای به زبان ساده دارد.</li>
+            <li>صرف اشاره به جریان و مراحل کافی نیست؛ توضیحات و جزئیات خاص لازم است.</li>
+            <li>جامع بودن و به‌روز بودن فرآیندها مورد تردید است.</li>
+          </ul>
+        </article>
+      </section>
+
+      <!-- سامانه‌ها و خدمات -->
+      <section id="systems">
+        <div class="section-header">
+          <h2>سامانه‌ها و خدمات</h2>
+          <span class="badge">بخش اصلی</span>
+        </div>
+
+        <article class="card">
+          <h3>سامانه‌ها</h3>
+          <p>فهرست سامانه‌ها با مشخص بودن مخاطب هر سامانه و قابلیت دسترسی برنامه‌ریزی‌شده.</p>
+        </article>
+
+        <article class="card">
+          <h3>بهای خدمات</h3>
+          <p>اطلاعات بهای خدمات شهرداری.</p>
+          <div class="status status--warn">وضعیت فعلی: نیازمند بازطراحی</div>
+          <ul class="status-list">
+            <li>اطلاعات به‌صورت فایل‌های اسکنی و بدون قابلیت جستجو ارائه شده است.</li>
+            <li>اسناد سال ۱۴۰۵ بارگذاری نشده‌اند.</li>
+            <li>محتوای فایل‌ها از انسجام فرمی و مفهومی مناسبی برخوردار نیست و مخاطب عام را سردرگم می‌کند.</li>
+          </ul>
+        </article>
+      </section>
+
+      <!-- پژوهش و داده‌ها -->
+      <section id="research">
+        <div class="section-header">
+          <h2>پژوهش و داده‌ها</h2>
+          <span class="badge">بخش اصلی</span>
+        </div>
+
+        <article class="card">
+          <h3>پژوهش‌ها و انتشارات</h3>
+          <p>مطالعات و پژوهش‌ها، کتب و انتشارات، مقالات و پایان‌نامه‌ها.</p>
+          <div class="status status--warn">وضعیت موجود: ناقص</div>
+          <ul class="status-list">
+            <li>از بسیاری از واحدها هیچ مطالعه‌ای بارگذاری نشده است.</li>
+            <li>تعداد مطالعه‌های بارگذاری‌شدۀ فعلی در بخش‌های مشارکت‌کننده، بسیار پایین‌تر از تعداد واقعی است.</li>
+            <li>درخصوص «طراحی‌ها» هیچ گزارشی قرار داده نشده است.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>داده‌ها و آمار</h3>
+          <p>گزارش‌ها و آمارنامه‌های رسمی، داده‌های خروجی سامانه‌ها، اطلاعات نظرسنجی‌ها و برداشت‌های میدانی.</p>
+        </article>
+      </section>
+
+      <!-- گزارش‌های مردمی -->
+      <section id="citizen-reports">
+        <div class="section-header">
+          <h2>گزارش‌های مردمی</h2>
+          <span class="badge">بخش اصلی</span>
+        </div>
+        <article class="card">
+          <h3>گزارش سامانۀ ۱۳۷ و دیگر نظرسنجی‌ها</h3>
+          <p>گزارش عملکرد سامانۀ ۱۳۷ و سایر نظرسنجی‌های مردمی.</p>
+        </article>
+      </section>
+
+      <!-- بخش جنبی -->
+      <section id="auxiliary" class="aside-section">
+        <h3>بخش جنبی سامانه</h3>
+        <p>این موارد باید به‌صورت جداگانه در زیر یا کنار بخش اصلی قرار گیرند:</p>
+        <ul>
+          <li>حمایت از گزارشگران فساد و سازوکارهای تشویقی</li>
+          <li>نظرات و پیشنهادات درخصوص سامانه</li>
+          <li>سامانۀ ۱۳۷ و شکایات مردمی</li>
+        </ul>
+        <p class="status status--bad" style="margin-top:12px;">نکته: «ثبت شکایت بازرسی» هم‌اکنون در دسته‌بندی بخش اصلی (و نه جنبی) قرار دارد.</p>
+      </section>
+
+      <!-- دسته‌های حذف‌شده و نکات -->
+      <section class="card" style="margin-top:28px; background:#f1f5f9;">
+        <h3>دسته‌بندی‌های حذف‌شده و نکات تکمیلی</h3>
+        <p><strong>حذف‌شده:</strong> «دریافت نشان (لوگو)» — مناسب قرارگیری در بخش «ارتباط با ما».</p>
+        <p><strong>نکتۀ مهم:</strong> تاریخ آخرین به‌روزرسانی اطلاعات هر صفحه باید درج و نمایش داده شود.</p>
+      </section>
+
+    </main>
+
+    <!-- ===== فوتر ===== -->
+    <footer class="footer">
+      <span>آخرین به‌روزرسانی قالب: ۱۴۰۵/۰۸/۰۱ (نمونه)</span>
+      <span>سامانۀ شفافیت شهرداری قم — قالب پیشنهادی</span>
+    </footer>
+
+  </div>
+</body>
+</html>
