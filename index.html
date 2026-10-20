@@ -3,585 +3,891 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>سامانۀ شفافیت شهرداری قم | قالب پیشنهادی</title>
+  <title>سامانۀ شفافیت شهرداری قم</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    /* ---------- متغیرهای طراحی ---------- */
     :root {
-      --color-bg: #f8fafc;
-      --color-surface: #ffffff;
-      --color-border: #e2e8f0;
-      --color-text: #1e293b;
-      --color-text-muted: #64748b;
-      --color-primary: #0f766e;
-      --color-primary-light: #ccfbf1;
-      --color-warning-bg: #fef3c7;
-      --color-warning-text: #92400e;
-      --color-danger-bg: #fee2e2;
-      --color-danger-text: #991b1b;
-      --color-success-bg: #dcfce7;
-      --color-success-text: #166534;
-      --radius: 12px;
-      --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-      --font-fa: 'Vazirmatn', 'Segoe UI', Tahoma, sans-serif;
+      --bg: #f4f6fb;
+      --surface: #ffffff;
+      --border: #e6eaf2;
+      --text: #1a2238;
+      --text-muted: #6b7590;
+      --primary: #0d6e6e;
+      --primary-2: #0f8b8b;
+      --primary-soft: #e0f2f1;
+      --accent: #f5a524;
+      --accent-soft: #fef3d7;
+      --blue: #2563eb;
+      --blue-soft: #e3ecfd;
+      --purple: #7c3aed;
+      --purple-soft: #efe7fd;
+      --pink: #db2777;
+      --pink-soft: #fce5f0;
+      --green: #059669;
+      --green-soft: #d8f5e9;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.04);
+      --shadow: 0 4px 16px rgba(16, 24, 40, 0.06);
+      --shadow-lg: 0 12px 32px rgba(16, 24, 40, 0.10);
+      --font: 'Vazirmatn', 'Segoe UI', Tahoma, sans-serif;
     }
-
-    /* ---------- ریست ---------- */
     *, *::before, *::after { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: var(--font-fa);
-      background: var(--color-bg);
-      color: var(--color-text);
-      line-height: 1.7;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
       font-size: 15px;
     }
+    a { color: inherit; text-decoration: none; }
 
-    /* ---------- چیدمان کلی ---------- */
-    .app {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      grid-template-rows: auto 1fr auto;
-      grid-template-areas:
-        "sidebar header"
-        "sidebar main"
-        "sidebar footer";
-      min-height: 100vh;
+    /* ====== Header ====== */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
     }
-
-    /* ---------- هدر ---------- */
-    .header {
-      grid-area: header;
-      background: var(--color-surface);
-      border-bottom: 1px solid var(--color-border);
-      padding: 16px 28px;
+    .topbar__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 14px 24px;
       display: flex;
       align-items: center;
       gap: 20px;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      flex-wrap: wrap;
     }
-    .header h1 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin: 0;
-      white-space: nowrap;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.05rem;
     }
-    .header h1 span {
-      color: var(--color-primary);
+    .brand__logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 1rem;
+      box-shadow: 0 4px 12px rgba(13, 110, 110, 0.35);
     }
-    .search-box {
+    .brand__sub { color: var(--text-muted); font-weight: 500; font-size: 0.8rem; }
+    .search {
       flex: 1;
-      max-width: 480px;
+      max-width: 460px;
       position: relative;
     }
-    .search-box input {
+    .search input {
       width: 100%;
-      padding: 10px 16px 10px 44px;
-      border: 1px solid var(--color-border);
+      padding: 10px 44px 10px 16px;
+      border: 1px solid var(--border);
       border-radius: 999px;
+      background: #f8fafc;
       font-family: inherit;
       font-size: 0.9rem;
-      background: var(--color-bg);
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: all 0.2s;
     }
-    .search-box input:focus {
+    .search input:focus {
       outline: none;
-      border-color: var(--color-primary);
-      box-shadow: 0 0 0 3px var(--color-primary-light);
+      background: #fff;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px var(--primary-soft);
     }
-    .search-box::before {
+    .search::before {
       content: "🔍";
       position: absolute;
-      inset-inline-start: 14px;
+      inset-inline-end: 16px;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 0.9rem;
-      opacity: 0.6;
-    }
-
-    /* ---------- سایدبار ---------- */
-    .sidebar {
-      grid-area: sidebar;
-      background: var(--color-surface);
-      border-inline-end: 1px solid var(--color-border);
-      padding: 24px 16px;
-      overflow-y: auto;
-      height: 100vh;
-      position: sticky;
-      top: 0;
-    }
-    .sidebar__brand {
-      font-weight: 700;
-      font-size: 1rem;
-      margin-bottom: 24px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid var(--color-border);
-      color: var(--color-primary);
-    }
-    .sidebar__nav {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-    .sidebar__nav > li {
-      margin-bottom: 6px;
-    }
-    .sidebar__nav a {
-      display: block;
-      padding: 8px 12px;
-      border-radius: 8px;
-      color: var(--color-text);
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: background 0.15s;
-    }
-    .sidebar__nav a:hover,
-    .sidebar__nav a.active {
-      background: var(--color-primary-light);
-      color: var(--color-primary);
-      font-weight: 500;
-    }
-    .sidebar__nav .sub {
-      list-style: none;
-      padding-inline-start: 20px;
-      margin: 4px 0 8px;
-    }
-    .sidebar__nav .sub a {
+      opacity: 0.55;
       font-size: 0.85rem;
-      padding: 5px 10px;
-      color: var(--color-text-muted);
     }
-    .sidebar__nav .sub a:hover {
-      color: var(--color-primary);
-      background: transparent;
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
     }
+    .nav-links a {
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+    .nav-links a:hover { background: var(--primary-soft); color: var(--primary); }
 
-    /* ---------- محتوای اصلی ---------- */
+    /* ====== Hero ====== */
+    .hero {
+      max-width: 1200px;
+      margin: 28px auto 0;
+      padding: 0 24px;
+    }
+    .hero__card {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0d6e6e 0%, #0f8b8b 50%, #14a3a3 100%);
+      border-radius: 24px;
+      padding: 40px 36px;
+      color: #fff;
+      box-shadow: 0 20px 48px rgba(13, 110, 110, 0.25);
+    }
+    .hero__card::before, .hero__card::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .hero__card::before {
+      width: 320px; height: 320px;
+      top: -120px; inset-inline-end: -80px;
+    }
+    .hero__card::after {
+      width: 200px; height: 200px;
+      bottom: -100px; inset-inline-start: 40px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .hero__content { position: relative; z-index: 1; }
+    .hero__eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.15);
+      margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin: 0 0 8px;
+      line-height: 1.4;
+    }
+    .hero p {
+      margin: 0 0 24px;
+      opacity: 0.9;
+      max-width: 620px;
+      font-size: 0.95rem;
+    }
+    .hero__stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 24px;
+    }
+    .hero__stat {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      backdrop-filter: blur(6px);
+    }
+    .hero__stat-value { font-size: 1.35rem; font-weight: 800; }
+    .hero__stat-label { font-size: 0.78rem; opacity: 0.85; margin-top: 2px; }
+
+    /* ====== Main ====== */
     .main {
-      grid-area: main;
-      padding: 28px 32px 48px;
-      max-width: 1100px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px 60px;
     }
-
-    /* ---------- عنوان بخش ---------- */
-    .section-header {
+    .section-title {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
+      margin: 0 0 20px;
       gap: 12px;
+      flex-wrap: wrap;
     }
-    .section-header h2 {
-      font-size: 1.25rem;
+    .section-title h2 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title h2::before {
+      content: "";
+      width: 6px;
+      height: 22px;
+      border-radius: 4px;
+      background: linear-gradient(180deg, var(--primary), var(--primary-2));
+    }
+    .section-title .view-all {
+      font-size: 0.85rem;
+      color: var(--primary);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ====== Card Grid ====== */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 18px;
+      margin-bottom: 40px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+    .card__icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+    .card__icon--teal { background: var(--primary-soft); color: var(--primary); }
+    .card__icon--blue { background: var(--blue-soft); color: var(--blue); }
+    .card__icon--purple { background: var(--purple-soft); color: var(--purple); }
+    .card__icon--pink { background: var(--pink-soft); color: var(--pink); }
+    .card__icon--green { background: var(--green-soft); color: var(--green); }
+    .card__icon--amber { background: var(--accent-soft); color: #b45309; }
+    .card h3 {
+      font-size: 1rem;
       font-weight: 700;
       margin: 0;
     }
-    .section-header .badge {
-      font-size: 0.75rem;
-      padding: 4px 12px;
-      border-radius: 999px;
-      background: var(--color-primary-light);
-      color: var(--color-primary);
-      font-weight: 500;
-    }
-
-    /* ---------- کارت ---------- */
-    .card {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius);
-      padding: 20px 22px;
-      margin-bottom: 18px;
-      box-shadow: var(--shadow);
-    }
-    .card h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      margin: 0 0 10px;
-    }
     .card p {
-      margin: 0 0 8px;
-      color: var(--color-text-muted);
-      font-size: 0.9rem;
+      margin: 0;
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .card__meta {
+      margin-top: auto;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .card__meta strong { color: var(--text); font-weight: 700; }
+    .card__arrow {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--bg);
+      display: grid;
+      place-items: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+    .card:hover .card__arrow {
+      background: var(--primary);
+      color: #fff;
+      transform: translateX(-4px);
     }
 
-    /* ---------- برچسب وضعیت ---------- */
-    .status {
+    /* ====== Panel ====== */
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+    .panel__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .panel__head h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    .panel__head .hint {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      background: var(--bg);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    /* ====== Table ====== */
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    th, td {
+      padding: 12px 14px;
+      text-align: right;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      font-weight: 600;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      background: var(--bg);
+      white-space: nowrap;
+    }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background: #f8fafc; }
+    .tag {
       display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 500;
+      font-size: 0.72rem;
+      font-weight: 600;
       padding: 3px 10px;
       border-radius: 999px;
-      margin-top: 8px;
+      white-space: nowrap;
     }
-    .status--ok { background: var(--color-success-bg); color: var(--color-success-text); }
-    .status--warn { background: var(--color-warning-bg); color: var(--color-warning-text); }
-    .status--bad { background: var(--color-danger-bg); color: var(--color-danger-text); }
+    .tag--green { background: var(--green-soft); color: var(--green); }
+    .tag--blue { background: var(--blue-soft); color: var(--blue); }
+    .tag--amber { background: var(--accent-soft); color: #b45309; }
+    .tag--pink { background: var(--pink-soft); color: var(--pink); }
 
-    /* ---------- لیست وضعیت‌ها ---------- */
-    .status-list {
-      list-style: none;
-      padding: 0;
-      margin: 12px 0 0;
-      border-top: 1px dashed var(--color-border);
-      padding-top: 12px;
+    /* ====== Progress ====== */
+    .progress {
+      height: 8px;
+      border-radius: 999px;
+      background: #eef1f6;
+      overflow: hidden;
     }
-    .status-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      font-size: 0.88rem;
-      color: var(--color-text-muted);
-      margin-bottom: 6px;
+    .progress__bar {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-2));
     }
-    .status-list li::before {
-      content: "•";
-      color: var(--color-primary);
-      font-weight: 700;
-    }
+    .progress__bar--blue { background: linear-gradient(90deg, #2563eb, #3b82f6); }
+    .progress__bar--amber { background: linear-gradient(90deg, #d97706, #f59e0b); }
+    .progress__bar--pink { background: linear-gradient(90deg, #be185d, #ec4899); }
 
-    /* ---------- بخش جنبی ---------- */
-    .aside-section {
-      background: #fffbeb;
-      border: 1px solid #fde68a;
-      border-radius: var(--radius);
-      padding: 18px 20px;
-      margin-top: 28px;
+    /* ====== Project list ====== */
+    .project-list { display: grid; gap: 14px; }
+    .project-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px 16px;
+      padding: 16px;
+      border-radius: var(--radius-sm);
+      background: #fafbfd;
+      border: 1px solid var(--border);
+      transition: background 0.15s;
     }
-    .aside-section h3 {
-      margin: 0 0 8px;
-      font-size: 0.95rem;
-      color: #92400e;
-    }
+    .project-item:hover { background: #f4f6fb; }
+    .project-item__title { font-weight: 600; font-size: 0.9rem; }
+    .project-item__meta { font-size: 0.78rem; color: var(--text-muted); }
+    .project-item__pct { font-weight: 800; color: var(--primary); font-size: 0.9rem; }
+    .project-item .progress { grid-column: 1 / -1; }
 
-    /* ---------- فوتر ---------- */
+    /* ====== Footer ====== */
     .footer {
-      grid-area: footer;
-      padding: 16px 28px;
-      border-top: 1px solid var(--color-border);
-      background: var(--color-surface);
-      font-size: 0.8rem;
-      color: var(--color-text-muted);
+      background: #0f172a;
+      color: #cbd5e1;
+      padding: 32px 24px;
+      margin-top: 40px;
+    }
+    .footer__inner {
+      max-width: 1200px;
+      margin: 0 auto;
       display: flex;
       justify-content: space-between;
+      gap: 20px;
       flex-wrap: wrap;
-      gap: 8px;
+      font-size: 0.82rem;
     }
+    .footer strong { color: #fff; }
 
-    /* ---------- واکنش‌گرا ---------- */
+    /* ====== Responsive ====== */
     @media (max-width: 900px) {
-      .app {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto 1fr auto;
-        grid-template-areas:
-          "header"
-          "sidebar"
-          "main"
-          "footer";
-      }
-      .sidebar {
-        height: auto;
-        position: static;
-        border-inline-end: none;
-        border-bottom: 1px solid var(--color-border);
-        padding: 16px;
-      }
-      .sidebar__nav {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-      }
-      .sidebar__nav .sub {
-        display: none; /* در موبایل زیرمنوها جمع می‌شوند */
-      }
-      .main { padding: 20px 16px 32px; }
-      .header { padding: 12px 16px; flex-wrap: wrap; }
-      .search-box { max-width: 100%; }
+      .hero__stats { grid-template-columns: repeat(2, 1fr); }
+      .hero h1 { font-size: 1.35rem; }
+      .nav-links { display: none; }
     }
-
-    @media (max-width: 480px) {
-      .header h1 { font-size: 1rem; white-space: normal; }
+    @media (max-width: 520px) {
+      .hero__card { padding: 26px 20px; }
+      .hero__stats { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+      .main { padding: 24px 16px 48px; }
+      .topbar__inner { padding: 12px 16px; }
     }
   </style>
 </head>
 <body>
-  <div class="app">
 
-    <!-- ===== هدر ===== -->
-    <header class="header">
-      <h1>سامانۀ شفافیت <span>شهرداری قم</span></h1>
-      <div class="search-box">
-        <input type="search" placeholder="جستجو در موضوعات شفافیت..." aria-label="جستجو" />
+  <!-- ====== Topbar ====== -->
+  <header class="topbar">
+    <div class="topbar__inner">
+      <div class="brand">
+        <div class="brand__logo">ش</div>
+        <div>
+          <div>سامانۀ شفافیت</div>
+          <div class="brand__sub">شهرداری قم</div>
+        </div>
       </div>
-    </header>
-
-    <!-- ===== سایدبار ===== -->
-    <aside class="sidebar">
-      <div class="sidebar__brand">فهرست موضوعی</div>
-      <nav>
-        <ul class="sidebar__nav">
-          <li><a href="#financial" class="active">مالی و اقتصادی</a>
-            <ul class="sub">
-              <li><a href="#budget">برنامه و بودجه</a></li>
-              <li><a href="#contracts">قراردادها و معاملات</a></li>
-              <li><a href="#tenders">فراخوان‌ها و مناقصات</a></li>
-              <li><a href="#debts">مطالبات و بدهی‌ها</a></li>
-              <li><a href="#exemptions">معافیت‌ها و تخفیف‌ها</a></li>
-            </ul>
-          </li>
-          <li><a href="#projects">پروژه‌ها و عملکرد</a>
-            <ul class="sub">
-              <li><a href="#civil-projects">پروژه‌های عمرانی</a></li>
-              <li><a href="#non-civil">پروژه‌های غیر عمرانی</a></li>
-            </ul>
-          </li>
-          <li><a href="#urban">شهرسازی، املاک و دارایی‌ها</a></li>
-          <li><a href="#structure">ساختارها و دستورالعمل‌ها</a>
-            <ul class="sub">
-              <li><a href="#org-chart">چارت سازمانی</a></li>
-              <li><a href="#staff">کارکنان و دریافتی‌ها</a></li>
-              <li><a href="#rules">قوانین و فرآیندها</a></li>
-            </ul>
-          </li>
-          <li><a href="#systems">سامانه‌ها و خدمات</a></li>
-          <li><a href="#research">پژوهش و داده‌ها</a></li>
-          <li><a href="#citizen-reports">گزارش‌های مردمی</a></li>
-          <li><a href="#auxiliary">بخش جنبی</a></li>
-        </ul>
+      <div class="search">
+        <input type="search" placeholder="جستجو در قراردادها، پروژه‌ها، بودجه..." aria-label="جستجو" />
+      </div>
+      <nav class="nav-links">
+        <a href="#financial">مالی</a>
+        <a href="#projects">پروژه‌ها</a>
+        <a href="#urban">املاک</a>
+        <a href="#staff">کارکنان</a>
+        <a href="#systems">خدمات</a>
       </nav>
-    </aside>
+    </div>
+  </header>
 
-    <!-- ===== محتوای اصلی ===== -->
-    <main class="main">
-
-      <!-- بخش مالی -->
-      <section id="financial">
-        <div class="section-header">
-          <h2>مالی و اقتصادی</h2>
-          <span class="badge">بخش اصلی</span>
+  <!-- ====== Hero ====== -->
+  <section class="hero">
+    <div class="hero__card">
+      <div class="hero__content">
+        <span class="hero__eyebrow">پورتال شفافیت</span>
+        <h1>دسترسی آزاد به اطلاعات شهرداری قم</h1>
+        <p>بودجه، قراردادها، پروژه‌ها، املاک و عملکرد سازمانی — همه در یک‌جا و برای همۀ شهروندان.</p>
+        <div class="hero__stats">
+          <div class="hero__stat">
+            <div class="hero__stat-value">۱۲,۵۰۰</div>
+            <div class="hero__stat-label">میلیارد تومان بودجه مصوب ۱۴۰۵</div>
+          </div>
+          <div class="hero__stat">
+            <div class="hero__stat-value">۱,۲۴۸</div>
+            <div class="hero__stat-label">قرارداد منتشرشده</div>
+          </div>
+          <div class="hero__stat">
+            <div class="hero__stat-value">۸۶</div>
+            <div class="hero__stat-label">پروژه در حال اجرا</div>
+          </div>
+          <div class="hero__stat">
+            <div class="hero__stat-value">۳,۴۵۰</div>
+            <div class="hero__stat-label">کارکنان رسمی و پیمانی</div>
+          </div>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <article id="budget" class="card">
+  <!-- ====== Main ====== -->
+  <main class="main">
+
+    <!-- ====== بخش مالی ====== -->
+    <section id="financial">
+      <div class="section-title">
+        <h2>مالی و اقتصادی</h2>
+        <a href="#" class="view-all">مشاهده همه ←</a>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <div class="card__icon card__icon--teal">💰</div>
           <h3>برنامه و بودجه</h3>
-          <p>برنامه‌های مصوب، بودجه‌های پیشنهادی/مصوب/اصلاحی، تفریغ بودجه و گزارش‌های عملکرد.</p>
-          <div class="status status--warn">وضعیت فعلی: نیازمند اصلاح</div>
-          <ul class="status-list">
-            <li>بسیاری از فایل‌ها به‌صورت تصویر اسکن‌شده منتشر شده‌اند؛ فایل PDF اکسلی و اکسل بارگذاری نشده است.</li>
-            <li>اسناد مربوط به سال ۱۴۰۵ هنوز بارگذاری نشده‌اند.</li>
-            <li>برخی لینک‌ها خراب هستند یا فایلی در آدرس ثبت‌شده وجود ندارد.</li>
-          </ul>
+          <p>بودجه‌های پیشنهادی، مصوب، اصلاحی و تفریغ بودجه به همراه گزارش عملکرد.</p>
+          <div class="card__meta">
+            <span><strong>۱۲,۵۰۰</strong> میلیارد تومان</span>
+            <span class="card__arrow">←</span>
+          </div>
         </article>
-
-        <article id="contracts" class="card">
-          <h3>قراردادها، تفاهم‌نامه‌ها و معاملات</h3>
-          <p>متن و مستندات کلیۀ قراردادهای جاری و خاتمه‌یافته (هزینه‌ای، درآمدی، سرمایه‌گذاری و اجارۀ املاک).</p>
-          <div class="status status--bad">وضعیت فعلی: ناقص</div>
-          <ul class="status-list">
-            <li>تنها فهرست قراردادها موجود است؛ متن یا فایل قرارداد در دسترس نیست.</li>
-            <li>قابلیت جستجو وجود ندارد.</li>
-          </ul>
+        <article class="card">
+          <div class="card__icon card__icon--blue">📄</div>
+          <h3>قراردادها و معاملات</h3>
+          <p>متن و مستندات قراردادهای هزینه‌ای، درآمدی، سرمایه‌گذاری و اجارۀ املاک.</p>
+          <div class="card__meta">
+            <span><strong>۱,۲۴۸</strong> قرارداد</span>
+            <span class="card__arrow">←</span>
+          </div>
         </article>
-
-        <article id="tenders" class="card">
-          <h3>فراخوان‌ها، مزایدات و مناقصات</h3>
-          <p>دسترسی به فهرست مشخص و قابل جستجوی فراخوان‌ها.</p>
-          <div class="status status--warn">وضعیت فعلی: ناکافی</div>
-          <ul class="status-list">
-            <li>تنها لینک وبسایت سامانۀ ستاد در بخش «مناقصات و مزایدات» قرار گرفته است.</li>
-            <li>کاربر به فهرست مشخص و قابل دسترسی فراخوان‌ها دسترسی ندارد.</li>
-          </ul>
+        <article class="card">
+          <div class="card__icon card__icon--purple">📢</div>
+          <h3>فراخوان‌ها و مناقصات</h3>
+          <p>فهرست فراخوان‌ها، مزایدات و مناقصات جاری با قابلیت جستجو.</p>
+          <div class="card__meta">
+            <span><strong>۳۷</strong> فراخوان فعال</span>
+            <span class="card__arrow">←</span>
+          </div>
         </article>
-
-        <article id="debts" class="card">
+        <article class="card">
+          <div class="card__icon card__icon--amber">📊</div>
           <h3>مطالبات و بدهی‌ها</h3>
-          <p>شفافیت در مطالبات و بدهی‌های شهرداری.</p>
-          <div class="status status--warn">وضعیت فعلی: نیازمند شفاف‌سازی بیشتر</div>
+          <p>وضعیت مطالبات از اشخاص و بدهی‌های شهرداری به تفکیک سال.</p>
+          <div class="card__meta">
+            <span><strong>۸۴۰</strong> میلیارد تومان</span>
+            <span class="card__arrow">←</span>
+          </div>
         </article>
-
-        <article id="exemptions" class="card">
-          <h3>معافیت‌ها، تخفیف‌ها، بخشودگی‌ها و مساعدت‌ها</h3>
-          <p>موارد معافیت، تخفیف و بخشودگی صورت‌گرفته و مساعدت‌های انجام‌شده به اشخاص حقیقی و حقوقی.</p>
-          <div class="status status--warn">وضعیت فعلی: نیازمند انتشار جزئیات</div>
+        <article class="card">
+          <div class="card__icon card__icon--pink">🎁</div>
+          <h3>معافیت‌ها و تخفیف‌ها</h3>
+          <p>موارد معافیت، تخفیف، بخشودگی و مساعدت‌های اعمال‌شده.</p>
+          <div class="card__meta">
+            <span><strong>۲۱۶</strong> مورد در سال جاری</span>
+            <span class="card__arrow">←</span>
+          </div>
         </article>
-      </section>
+      </div>
 
-      <!-- بخش پروژه‌ها -->
-      <section id="projects">
-        <div class="section-header">
-          <h2>پروژه‌ها و عملکرد</h2>
-          <span class="badge">بخش اصلی</span>
+      <!-- نمونه جدول قراردادها -->
+      <div class="panel">
+        <div class="panel__head">
+          <h3>آخرین قراردادهای منتشرشده</h3>
+          <span class="hint">نمونهٔ نمایشی</span>
         </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>شماره قرارداد</th>
+                <th>موضوع</th>
+                <th>طرف قرارداد</th>
+                <th>مبلغ (میلیون تومان)</th>
+                <th>تاریخ</th>
+                <th>وضعیت</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>۱۴۰۵/۰۱۲۳</td>
+                <td>احداث پل عابر پیاده بلوار امین</td>
+                <td>شرکت عمران سازه پارس</td>
+                <td>۴۸,۵۰۰</td>
+                <td>۱۴۰۵/۰۷/۱۲</td>
+                <td><span class="tag tag--green">جاری</span></td>
+              </tr>
+              <tr>
+                <td>۱۴۰۵/۰۱۱۸</td>
+                <td>خرید ماشین‌آلات خدمات شهری</td>
+                <td>شرکت تجهیزات مدرن</td>
+                <td>۱۲۲,۰۰۰</td>
+                <td>۱۴۰۵/۰۷/۰۵</td>
+                <td><span class="tag tag--green">جاری</span></td>
+              </tr>
+              <tr>
+                <td>۱۴۰۵/۰۰۹۴</td>
+                <td>اجارۀ ساختمان اداری منطقه ۳</td>
+                <td>آقای محمد رضایی</td>
+                <td>۹,۶۰۰</td>
+                <td>۱۴۰۵/۰۶/۲۸</td>
+                <td><span class="tag tag--blue">خاتمه‌یافته</span></td>
+              </tr>
+              <tr>
+                <td>۱۴۰۵/۰۰۸۷</td>
+                <td>طراحی و اجرای فضای سبز بلوار غدیر</td>
+                <td>شرکت سبزآوران</td>
+                <td>۳۲,۴۰۰</td>
+                <td>۱۴۰۵/۰۶/۱۵</td>
+                <td><span class="tag tag--green">جاری</span></td>
+              </tr>
+              <tr>
+                <td>۱۴۰۵/۰۰۷۶</td>
+                <td>سرمایه‌گذاری پروژه تجاری میدان مطهری</td>
+                <td>هلدینگ توسعه شهری</td>
+                <td>۴۵۰,۰۰۰</td>
+                <td>۱۴۰۵/۰۵/۳۰</td>
+                <td><span class="tag tag--amber">در حال بررسی</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
 
-        <article id="civil-projects" class="card">
+    <!-- ====== پروژه‌ها ====== -->
+    <section id="projects">
+      <div class="section-title">
+        <h2>پروژه‌ها و عملکرد</h2>
+        <a href="#" class="view-all">مشاهده همه ←</a>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <div class="card__icon card__icon--green">🏗️</div>
           <h3>پروژه‌های عمرانی</h3>
-          <p>اطلاعات کلی، اهداف، موقعیت، مبلغ مصوب و هزینه‌کرد، برنامه زمانی، پیشرفت و پیمانکاران.</p>
-          <div class="status status--bad">وضعیت فعلی: فاقد اطلاعات کلیدی</div>
-          <ul class="status-list">
-            <li>اطلاعات کلی هر پروژه (اهداف، ابعاد و احجام، ارقام ریالی و موقعیت) وجود ندارد.</li>
-            <li>اطلاعات به‌روز پیشرفت بخش‌های مختلف هر پروژه در دسترس نیست.</li>
-          </ul>
+          <p>اطلاعات کلی، مبلغ مصوب، هزینه‌کرد، پیشرفت و پیمانکاران.</p>
+          <div class="card__meta">
+            <span><strong>۵۲</strong> پروژه فعال</span>
+            <span class="card__arrow">←</span>
+          </div>
         </article>
-
-        <article id="non-civil" class="card">
+        <article class="card">
+          <div class="card__icon card__icon--blue">🗂️</div>
           <h3>پروژه‌های غیر عمرانی</h3>
-          <p>اطلاعات پروژه‌های غیر عمرانی شهرداری.</p>
-          <div class="status status--warn">وضعیت فعلی: نیازمند تکمیل</div>
+          <p>پروژه‌های فرهنگی، اجتماعی، فناوری اطلاعات و خدمات شهری.</p>
+          <div class="card__meta">
+            <span><strong>۳۴</strong> پروژه فعال</span>
+            <span class="card__arrow">←</span>
+          </div>
         </article>
-      </section>
+      </div>
 
-      <!-- شهرسازی و املاک -->
-      <section id="urban">
-        <div class="section-header">
-          <h2>شهرسازی، املاک و دارایی‌ها</h2>
-          <span class="badge">بخش اصلی</span>
+      <div class="panel">
+        <div class="panel__head">
+          <h3>پیشرفت پروژه‌های شاخص</h3>
+          <span class="hint">نمونهٔ نمایشی</span>
         </div>
+        <div class="project-list">
+          <div class="project-item">
+            <div>
+              <div class="project-item__title">احداث پل عابر پیاده بلوار امین</div>
+              <div class="project-item__meta">پیمانکار: عمران سازه پارس · بودجه: ۴۸,۵۰۰ میلیون تومان</div>
+            </div>
+            <div class="project-item__pct">۷۲٪</div>
+            <div class="progress"><div class="progress__bar" style="width:72%"></div></div>
+          </div>
+          <div class="project-item">
+            <div>
+              <div class="project-item__title">بازآفرینی بافت تاریخی بازار قم</div>
+              <div class="project-item__meta">پیمانکار: میراث‌سازان · بودجه: ۲۱۰,۰۰۰ میلیون تومان</div>
+            </div>
+            <div class="project-item__pct">۴۵٪</div>
+            <div class="progress"><div class="progress__bar progress__bar--blue" style="width:45%"></div></div>
+          </div>
+          <div class="project-item">
+            <div>
+              <div class="project-item__title">پارک منطقه ۸ (بوستان ولایت)</div>
+              <div class="project-item__meta">پیمانکار: سبزآوران · بودجه: ۶۵,۰۰۰ میلیون تومان</div>
+            </div>
+            <div class="project-item__pct">۸۸٪</div>
+            <div class="progress"><div class="progress__bar progress__bar--amber" style="width:88%"></div></div>
+          </div>
+          <div class="project-item">
+            <div>
+              <div class="project-item__title">هوشمندسازی چراغ‌های راهنمایی و رانندگی</div>
+              <div class="project-item__meta">پیمانکار: فناوران ترافیک · بودجه: ۳۸,۰۰۰ میلیون تومان</div>
+            </div>
+            <div class="project-item__pct">۳۲٪</div>
+            <div class="progress"><div class="progress__bar progress__bar--pink" style="width:32%"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- ====== شهرسازی و املاک ====== -->
+    <section id="urban">
+      <div class="section-title">
+        <h2>شهرسازی، املاک و دارایی‌ها</h2>
+        <a href="#" class="view-all">مشاهده همه ←</a>
+      </div>
+      <div class="grid">
         <article class="card">
+          <div class="card__icon card__icon--purple">🏙️</div>
           <h3>شهرسازی</h3>
-          <p>پرونده‌ها و اطلاعات شهرسازی، توافق‌ها و اسناد، ضوابط محاسبۀ عوارض.</p>
+          <p>پرونده‌ها، توافق‌ها، اسناد و ضوابط محاسبۀ عوارض.</p>
+          <div class="card__meta">
+            <span><strong>۴,۸۲۰</strong> پرونده در سال جاری</span>
+            <span class="card__arrow">←</span>
+          </div>
         </article>
-
         <article class="card">
-          <h3>املاک</h3>
-          <p>املاک و مستحدثات شهرداری، واگذاری‌ها، اجاره‌ها و معاملات ملکی.</p>
-          <div class="status status--warn">وضعیت فعلی: ابهام در دامنه</div>
-          <ul class="status-list">
-            <li>مشخص نیست فهرست «املاک مورد بهره‌برداری» شامل تمام املاک شهرداری است یا فقط املاک مورد بهره‌برداری.</li>
-            <li>فهرست اشاره‌شده قابلیت جستجو ندارد.</li>
-          </ul>
+          <div class="card__icon card__icon--teal">🏢</div>
+          <h3>املاک و مستحدثات</h3>
+          <p>فهرست املاک شهرداری، واگذاری‌ها، اجاره‌ها و معاملات ملکی.</p>
+          <div class="card__meta">
+            <span><strong>۱,۰۶۰</strong> ملک ثبت‌شده</span>
+            <span class="card__arrow">←</span>
+          </div>
         </article>
-
         <article class="card">
-          <h3>دیگر دارایی‌ها</h3>
-          <p>تجهیزات و ماشین‌آلات گران‌قیمت.</p>
+          <div class="card__icon card__icon--amber">🚜</div>
+          <h3>تجهیزات و ماشین‌آلات</h3>
+          <p>فهرست تجهیزات گران‌قیمت و ماشین‌آلات سنگین شهرداری.</p>
+          <div class="card__meta">
+            <span><strong>۳۱۲</strong> دستگاه</span>
+            <span class="card__arrow">←</span>
+          </div>
         </article>
-      </section>
+      </div>
+    </section>
 
-      <!-- ساختارها -->
-      <section id="structure">
-        <div class="section-header">
-          <h2>ساختارها، روندها و دستورالعمل‌ها</h2>
-          <span class="badge">بخش اصلی</span>
-        </div>
-
-        <article id="org-chart" class="card">
-          <h3>ساختار سازمانی و سرمایۀ انسانی</h3>
-          <p>چارت سازمانی، جایگاه‌ها، فهرست کارکنان، دریافتی‌ها، کارکنان مشمول قوانین تعارض منافع و سفرهای خارجی.</p>
-          <div class="status status--warn">وضعیت فعلی: نیازمند بهبود رابط کاربری و شفافیت مالی</div>
-          <ul class="status-list">
-            <li>تنها سمت فعلی، سابقه و نوع قرارداد کارکنان نمایش داده می‌شود.</li>
-            <li>اطلاعات دریافتی مدیران ارشد به‌صورت جداگانه نمایش داده نشده است.</li>
-            <li>به‌جای مبلغ حکم، باید خالص دریافتی آورده شود.</li>
-            <li>اشکال‌های فنی در رابط کاربری و نحوۀ نمایش وجود دارد.</li>
-            <li>اطلاعات این بخش به‌روزرسانی نشده است.</li>
-          </ul>
-        </article>
-
-        <article id="rules" class="card">
-          <h3>قوانین، دستورالعمل‌ها و روندها</h3>
-          <p>فرآیند ارائه خدمات به شهروندان، فرآیندهای تصمیم‌گیری داخلی، کمیسیون‌ها و جلسات، مصوبات شورا، اساسنامه‌ها و آئین‌نامه‌ها.</p>
-          <div class="status status--warn">وضعیت فعلی: ناکافی برای مخاطب عام</div>
-          <ul class="status-list">
-            <li>بخش «آراء کمیسیون‌ها» خالی است.</li>
-            <li>فرآیندها با استاندارد BPMN نگاشته شده که برای مخاطب عام گنگ است؛ نیاز به راهنمای به زبان ساده دارد.</li>
-            <li>صرف اشاره به جریان و مراحل کافی نیست؛ توضیحات و جزئیات خاص لازم است.</li>
-            <li>جامع بودن و به‌روز بودن فرآیندها مورد تردید است.</li>
-          </ul>
-        </article>
-      </section>
-
-      <!-- سامانه‌ها و خدمات -->
-      <section id="systems">
-        <div class="section-header">
-          <h2>سامانه‌ها و خدمات</h2>
-          <span class="badge">بخش اصلی</span>
-        </div>
-
+    <!-- ====== ساختارها و کارکنان ====== -->
+    <section id="staff">
+      <div class="section-title">
+        <h2>ساختارها، روندها و دستورالعمل‌ها</h2>
+        <a href="#" class="view-all">مشاهده همه ←</a>
+      </div>
+      <div class="grid">
         <article class="card">
-          <h3>سامانه‌ها</h3>
-          <p>فهرست سامانه‌ها با مشخص بودن مخاطب هر سامانه و قابلیت دسترسی برنامه‌ریزی‌شده.</p>
+          <div class="card__icon card__icon--blue">🧭</div>
+          <h3>چارت سازمانی</h3>
+          <p>ساختار سازمانی، جایگاه‌ها، وظائف و مسئولیت‌ها.</p>
+          <div class="card__meta">
+            <span><strong>۲۸</strong> واحد سازمانی</span>
+            <span class="card__arrow">←</span>
+          </div>
         </article>
-
         <article class="card">
+          <div class="card__icon card__icon--green">👥</div>
+          <h3>کارکنان و دریافتی‌ها</h3>
+          <p>فهرست کارکنان، سوابق، مدارک و دریافتی‌ها با تفکیک مدیریتی.</p>
+          <div class="card__meta">
+            <span><strong>۳,۴۵۰</strong> کارمند</span>
+            <span class="card__arrow">←</span>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card__icon card__icon--pink">⚖️</div>
+          <h3>قوانین و فرآیندها</h3>
+          <p>فرآیندهای ارائه خدمات، کمیسیون‌ها، مصوبات شورا و آئین‌نامه‌ها.</p>
+          <div class="card__meta">
+            <span><strong>۱۴۲</strong> سند و مصوبه</span>
+            <span class="card__arrow">←</span>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card__icon card__icon--amber">✈️</div>
+          <h3>سفرهای خارجی مأموریتی</h3>
+          <p>فهرست سفرهای خارجی مأموریتی کارکنان و مدیران.</p>
+          <div class="card__meta">
+            <span><strong>۹</strong> سفر در سال جاری</span>
+            <span class="card__arrow">←</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====== سامانه‌ها و خدمات ====== -->
+    <section id="systems">
+      <div class="section-title">
+        <h2>سامانه‌ها و خدمات</h2>
+        <a href="#" class="view-all">مشاهده همه ←</a>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <div class="card__icon card__icon--teal">💻</div>
+          <h3>سامانه‌های شهرداری</h3>
+          <p>فهرست سامانه‌های خدماتی و مشخص بودن مخاطب هر سامانه.</p>
+          <div class="card__meta">
+            <span><strong>۲۴</strong> سامانه فعال</span>
+            <span class="card__arrow">←</span>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card__icon card__icon--purple">🧾</div>
           <h3>بهای خدمات</h3>
-          <p>اطلاعات بهای خدمات شهرداری.</p>
-          <div class="status status--warn">وضعیت فعلی: نیازمند بازطراحی</div>
-          <ul class="status-list">
-            <li>اطلاعات به‌صورت فایل‌های اسکنی و بدون قابلیت جستجو ارائه شده است.</li>
-            <li>اسناد سال ۱۴۰۵ بارگذاری نشده‌اند.</li>
-            <li>محتوای فایل‌ها از انسجام فرمی و مفهومی مناسبی برخوردار نیست و مخاطب عام را سردرگم می‌کند.</li>
-          </ul>
+          <p>تعرفه‌های خدمات شهرداری به تفکیک سال و نوع خدمت.</p>
+          <div class="card__meta">
+            <span><strong>۱۴۰۵</strong> به‌روز</span>
+            <span class="card__arrow">←</span>
+          </div>
         </article>
-      </section>
+      </div>
+    </section>
 
-      <!-- پژوهش و داده‌ها -->
-      <section id="research">
-        <div class="section-header">
-          <h2>پژوهش و داده‌ها</h2>
-          <span class="badge">بخش اصلی</span>
-        </div>
-
+    <!-- ====== پژوهش و داده ====== -->
+    <section id="research">
+      <div class="section-title">
+        <h2>پژوهش و داده‌ها</h2>
+        <a href="#" class="view-all">مشاهده همه ←</a>
+      </div>
+      <div class="grid">
         <article class="card">
+          <div class="card__icon card__icon--blue">📚</div>
           <h3>پژوهش‌ها و انتشارات</h3>
-          <p>مطالعات و پژوهش‌ها، کتب و انتشارات، مقالات و پایان‌نامه‌ها.</p>
-          <div class="status status--warn">وضعیت موجود: ناقص</div>
-          <ul class="status-list">
-            <li>از بسیاری از واحدها هیچ مطالعه‌ای بارگذاری نشده است.</li>
-            <li>تعداد مطالعه‌های بارگذاری‌شدۀ فعلی در بخش‌های مشارکت‌کننده، بسیار پایین‌تر از تعداد واقعی است.</li>
-            <li>درخصوص «طراحی‌ها» هیچ گزارشی قرار داده نشده است.</li>
-          </ul>
+          <p>مطالعات، کتب، مقالات و پایان‌نامه‌های منتشرشده.</p>
+          <div class="card__meta">
+            <span><strong>۱۸۶</strong> عنوان</span>
+            <span class="card__arrow">←</span>
+          </div>
         </article>
-
         <article class="card">
+          <div class="card__icon card__icon--green">📈</div>
           <h3>داده‌ها و آمار</h3>
-          <p>گزارش‌ها و آمارنامه‌های رسمی، داده‌های خروجی سامانه‌ها، اطلاعات نظرسنجی‌ها و برداشت‌های میدانی.</p>
+          <p>آمارنامه‌های رسمی، داده‌های سامانه‌ها و نتایج نظرسنجی‌ها.</p>
+          <div class="card__meta">
+            <span><strong>۵۲</strong> مجموعه داده</span>
+            <span class="card__arrow">←</span>
+          </div>
         </article>
-      </section>
-
-      <!-- گزارش‌های مردمی -->
-      <section id="citizen-reports">
-        <div class="section-header">
-          <h2>گزارش‌های مردمی</h2>
-          <span class="badge">بخش اصلی</span>
-        </div>
         <article class="card">
-          <h3>گزارش سامانۀ ۱۳۷ و دیگر نظرسنجی‌ها</h3>
-          <p>گزارش عملکرد سامانۀ ۱۳۷ و سایر نظرسنجی‌های مردمی.</p>
+          <div class="card__icon card__icon--pink">📞</div>
+          <h3>گزارش‌های مردمی</h3>
+          <p>گزارش سامانۀ ۱۳۷ و نتایج نظرسنجی‌های مردمی.</p>
+          <div class="card__meta">
+            <span><strong>۱۲,۳۰۰</strong> گزارش در سال جاری</span>
+            <span class="card__arrow">←</span>
+          </div>
         </article>
-      </section>
+      </div>
+    </section>
 
-      <!-- بخش جنبی -->
-      <section id="auxiliary" class="aside-section">
-        <h3>بخش جنبی سامانه</h3>
-        <p>این موارد باید به‌صورت جداگانه در زیر یا کنار بخش اصلی قرار گیرند:</p>
-        <ul>
-          <li>حمایت از گزارشگران فساد و سازوکارهای تشویقی</li>
-          <li>نظرات و پیشنهادات درخصوص سامانه</li>
-          <li>سامانۀ ۱۳۷ و شکایات مردمی</li>
-        </ul>
-        <p class="status status--bad" style="margin-top:12px;">نکته: «ثبت شکایت بازرسی» هم‌اکنون در دسته‌بندی بخش اصلی (و نه جنبی) قرار دارد.</p>
-      </section>
+    <!-- ====== بخش جنبی ====== -->
+    <section id="auxiliary">
+      <div class="section-title">
+        <h2>بخش جنبی سامانه</h2>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <div class="card__icon card__icon--amber">🛡️</div>
+          <h3>حمایت از گزارشگران فساد</h3>
+          <p>سازوکارهای تشویقی و حمایتی برای گزارشگران فساد.</p>
+          <div class="card__meta">
+            <span>مشاهده جزئیات</span>
+            <span class="card__arrow">←</span>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card__icon card__icon--teal">💬</div>
+          <h3>نظرات و پیشنهادات</h3>
+          <p>ارسال نظر و پیشنهاد درخصوص سامانۀ شفافیت.</p>
+          <div class="card__meta">
+            <span>ثبت پیشنهاد</span>
+            <span class="card__arrow">←</span>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card__icon card__icon--blue">📞</div>
+          <h3>سامانۀ ۱۳۷ و شکایات</h3>
+          <p>ثبت و پیگیری شکایات مردمی از طریق سامانۀ ۱۳۷.</p>
+          <div class="card__meta">
+            <span>ورود به سامانه</span>
+            <span class="card__arrow">←</span>
+          </div>
+        </article>
+      </div>
+    </section>
 
-      <!-- دسته‌های حذف‌شده و نکات -->
-      <section class="card" style="margin-top:28px; background:#f1f5f9;">
-        <h3>دسته‌بندی‌های حذف‌شده و نکات تکمیلی</h3>
-        <p><strong>حذف‌شده:</strong> «دریافت نشان (لوگو)» — مناسب قرارگیری در بخش «ارتباط با ما».</p>
-        <p><strong>نکتۀ مهم:</strong> تاریخ آخرین به‌روزرسانی اطلاعات هر صفحه باید درج و نمایش داده شود.</p>
-      </section>
+  </main>
 
-    </main>
+  <!-- ====== Footer ====== -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div>
+        <strong>سامانۀ شفافیت شهرداری قم</strong><br />
+        این صفحه یک قالب نمایشی است و داده‌های آن نمونه هستند.
+      </div>
+      <div>
+        آخرین به‌روزرسانی: <strong>۱۴۰۵/۰۸/۰۱</strong>
+      </div>
+    </div>
+  </footer>
 
-    <!-- ===== فوتر ===== -->
-    <footer class="footer">
-      <span>آخرین به‌روزرسانی قالب: ۱۴۰۵/۰۸/۰۱ (نمونه)</span>
-      <span>سامانۀ شفافیت شهرداری قم — قالب پیشنهادی</span>
-    </footer>
-
-  </div>
 </body>
 </html>
